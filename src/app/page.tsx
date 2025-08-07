@@ -1,10 +1,5 @@
-import React from 'react'
-import Header from './_components/Header'
-export default function HomePage() {
-  return (
-    <div>
+import React from "react";
 
-     <Header/>
-    </div>
-  )
+export default function HomePage() {
+  return <div>HomePage</div>;
 }
