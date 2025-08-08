@@ -10,10 +10,30 @@ const SignUpPage = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    const data = {
+      name,
+      email,
+      password,
+    };
+
+    const res = await fetch("/api/sign-up", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // 👈 THIS IS IMPORTANT
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await res.json();
+
+    if (res.success) {
+      alert("User Created");
+    } else {
+      alert("No user created");
+    }
   };
 
   return (
