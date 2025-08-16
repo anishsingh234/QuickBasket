@@ -9,10 +9,33 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    const data = {
+      email,
+      password,
+    };
+
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        alert("Login Successfully");
+      } else {
+        alert("Not Logid In");
+      }
+    } catch (error) {
+      alert("Login Failded!");
+    }
   };
 
   return (
