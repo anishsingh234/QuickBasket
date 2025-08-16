@@ -28,7 +28,7 @@ export default function ImageSlider() {
   }, []);
 
   return (
-    <div className="relative w-full max-w-8xl mx-auto overflow-hidden rounded">
+    <div className="relative w-full max-w-8xl mx-auto overflow-hidden rounded mt-5">
       {/* Images */}
       <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${current * 100}%)` }}>
         {images.map((src, index) => (
