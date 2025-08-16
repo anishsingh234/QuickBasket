@@ -29,7 +29,7 @@ const SignUpPage = () => {
 
     const result = await res.json();
 
-    if (res.success) {
+    if (result.success) {
       alert("User Created");
     } else {
       alert("No user created");
