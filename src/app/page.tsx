@@ -3,6 +3,7 @@ import React from "react";
 import ImageSlider from "./_components/Slider";
 import ProductCard from "./_components/ProductCard";
 import Footer from "./_components/Footer";
+import Header from "./_components/Header";
 
 export default async function HomePage() {
   let product1: any[] = [];
@@ -21,6 +22,7 @@ export default async function HomePage() {
 
   return (
     <div className="bg-gray-50">
+      <Header/>
       {/* Hero Slider */}
       <ImageSlider />
 
