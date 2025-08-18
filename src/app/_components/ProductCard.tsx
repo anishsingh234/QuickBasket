@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { Product } from "../../../generated/prisma";
 import { Star } from "lucide-react"; // for rating stars
-
+import Link from "next/link";
 interface Props {
   product: Product;
 }
@@ -24,27 +24,29 @@ export default function ProductCard({ product }: Props) {
       )}
 
       {/* Product Image */}
-      <div className="flex justify-center">
-        <Image
-          src={product?.thumbnail || "/placeholder.png"}
-          alt={product.title}
-          width={160}
-          height={160}
-          className="object-contain"
-        />
-      </div>
+      <Link href={"/product-info/" + product?.id}>
+        <div className="flex justify-center">
+          <Image
+            src={product?.thumbnail || "/placeholder.png"}
+            alt={product.title}
+            width={160}
+            height={160}
+            className="object-contain"
+          />
+        </div>
 
-      {/* Title */}
-      <h2 className="mt-3 text-base font-semibold text-gray-900 truncate">
-        {product?.title}
-      </h2>
+        {/* Title */}
+        <h2 className="mt-3 text-base font-semibold text-gray-900 truncate">
+          {product?.title}
+        </h2>
 
-      {/* Prices */}
-      <div className="flex items-center gap-2 mt-1">
-        <span className="text-lg font-bold text-gray-900">
-          ₹{product?.price}
-        </span>
-      </div>
+        {/* Prices */}
+        <div className="flex items-center gap-2 mt-1">
+          <span className="text-lg font-bold text-gray-900">
+            ₹{product?.price}
+          </span>
+        </div>
+      </Link>
 
       {/* Rating */}
       <div className="flex items-center gap-1 mt-2">
