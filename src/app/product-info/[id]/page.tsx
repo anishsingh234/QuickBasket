@@ -2,7 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-
+import { Button } from "@/components/ui/button";
+import { ShoppingCart, CreditCard, Edit, Trash2 } from "lucide-react";
+import UpdateProduct from "@/app/_components/UpdateProduct";
+import DeleteProduct from "@/app/_components/DeleteProduct";
 type Product = {
   id: string;
   title: string;
@@ -122,13 +125,37 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
         <p className="text-gray-700 mb-4">{product.description}</p>
 
         {/* Action buttons */}
-        <div className="flex gap-4">
-          <button className="px-6 py-3 bg-purple-600 text-white rounded-xl shadow hover:bg-purple-700">
+        <div className="flex flex-wrap gap-3 mt-6">
+          {/* Add to Cart */}
+          <Button className="bg-purple-600 hover:bg-purple-700 text-white">
+            <ShoppingCart className="mr-2 h-4 w-4" />
             Add to Cart
-          </button>
-          <button className="px-6 py-3 border border-purple-600 text-purple-600 rounded-xl hover:bg-purple-50">
+          </Button>
+
+          {/* Buy Now */}
+          <Button
+            variant="outline"
+            className="border-purple-600 text-purple-600 hover:bg-purple-50"
+          >
+            <CreditCard className="mr-2 h-4 w-4" />
             Buy Now
-          </button>
+          </Button>
+
+          {/* Update Product */}
+          <UpdateProduct props={product}>
+            <Button variant="secondary">
+              <Edit className="mr-2 h-4 w-4" />
+              Update
+            </Button>
+          </UpdateProduct>
+
+          {/* Delete Product */}
+          <DeleteProduct product={product}>
+            <Button variant="destructive">
+              <Trash2 className="mr-2 h-4 w-4" />
+              Delete
+            </Button>
+          </DeleteProduct>
         </div>
       </div>
     </div>

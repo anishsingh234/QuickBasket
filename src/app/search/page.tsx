@@ -25,8 +25,9 @@ export default function SearchPage() {
 
   return (
     <div className="max-w-6xl mx-auto p-6">
+      {/* Navbar */}
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <Image
             src="/logo.svg"
             alt="Quick Basket Logo"
@@ -36,8 +37,9 @@ export default function SearchPage() {
           />
           <h1 className="text-2xl font-bold tracking-tight">Quick Basket</h1>
         </Link>
-        <SearchProduct/>
+        <SearchProduct />
       </div>
+
       <h1 className="text-xl font-semibold mb-4">
         Search results for: <span className="text-indigo-600">"{query}"</span>
       </h1>
@@ -63,39 +65,45 @@ export default function SearchPage() {
             </div>
 
             {/* Product Info */}
-            <div className="flex-1 p-4">
+            <div className="flex-1 p-4"><Link href={`/product-info/`+item.id}>
               <h2 className="text-lg font-medium text-indigo-700 hover:underline cursor-pointer">
                 {item.title}
               </h2>
-
-              {/* Rating + Reviews */}
+              </Link>
+              {/* Rating */}
               <div className="flex items-center text-sm text-gray-500 mt-1">
                 <span className="bg-green-600 text-white px-2 py-0.5 rounded text-xs font-semibold">
-                  {item.rating || "4.4"} ★
-                </span>
-                <span className="ml-2">
-                  {item.reviews || "13,203 Ratings & 976 Reviews"}
+                  {item.rating?.toFixed(1) || "N/A"} ★
                 </span>
               </div>
 
-              {/* Features */}
-              <ul className="list-disc pl-5 mt-2 text-sm text-gray-600 space-y-1">
-                <li>{item.ram || "6 GB RAM"} | {item.storage || "128 GB ROM"}</li>
-                <li>{item.display || "16.0 cm (6.3 inch) Full HD+ Display"}</li>
-                <li>{item.camera || "48MP + 8MP + 2MP + 2MP | 13MP Front Camera"}</li>
-                <li>{item.battery || "4000 mAh Battery"}</li>
-                <li>{item.processor || "Qualcomm Snapdragon 665 Processor"}</li>
-              </ul>
+              {/* Description */}
+              <p className="mt-2 text-sm text-gray-600 line-clamp-3">
+                {item.description}
+              </p>
+
+              {/* Category + Stock */}
+              <p className="mt-2 text-sm text-gray-500">
+                Category: <span className="font-medium">{item.category}</span>
+              </p>
+              <p
+                className={`mt-1 text-sm ${
+                  item.stock > 0 ? "text-green-600" : "text-red-500"
+                }`}
+              >
+                {item.stock > 0
+                  ? `${item.stock} in stock`
+                  : "Out of stock"}
+              </p>
             </div>
 
-            {/* Price + Offers */}
+            {/* Price + Discount */}
             <div className="w-40 p-4 text-right">
-              <p className="text-2xl font-semibold text-gray-800">₹{item.price || "11,935"}</p>
-              <p className="line-through text-sm text-gray-400">₹{item.oldPrice || "15,999"}</p>
-              <p className="text-green-600 font-medium">{item.discount || "25% off"}</p>
-              <p className="text-red-500 text-sm mt-1">Only few left</p>
-              <p className="text-sm text-gray-600 mt-1">
-                Upto <span className="font-semibold">₹9,900</span> Off on Exchange
+              <p className="text-2xl font-semibold text-gray-800">
+                ₹{item.price.toFixed(2)}
+              </p>
+              <p className="text-green-600 font-medium">
+                {item.discountpercentage}% off
               </p>
             </div>
           </div>
