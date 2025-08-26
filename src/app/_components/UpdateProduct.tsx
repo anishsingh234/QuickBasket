@@ -14,93 +14,93 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Product } from "../../../generated/prisma";
+import { Edit } from "lucide-react";
 
-export function AddProduct() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState<number>(0);
-  const [rating, setRating] = useState<number>(0);
-  const [images, setImages] = useState<string[]>([]);
-  const [stock, setStock] = useState<number>(0);
-  const [discountpercentage, setDiscountpercentage] = useState<number>(0);
-  const [thumbnail, setThumbnail] = useState("");
+export default function UpdateProduct({
+  props,
+  children,
+}: {
+  props: Product;
+  children?: React.ReactNode;
+}) {
+  // ✅ Initialize with existing values
+  const [title, setTitle] = useState(props.title);
+  const [description, setDescription] = useState(props.description);
+  const [category, setCategory] = useState(props.category);
+  const [price, setPrice] = useState<number>(props.price);
+  const [rating, setRating] = useState<number>(props.rating);
+  const [images, setImages] = useState<string[]>(props.images || []);
+  const [stock, setStock] = useState<number>(props.stock);
+  const [discountpercentage, setDiscountpercentage] = useState<number>(
+    props.discountpercentage || 0
+  );
+  const [thumbnail, setThumbnail] = useState(props.thumbnail || "");
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const newProduct = {
-      title,
-      description,
-      category,
-      price: Number(price),
-      rating: Number(rating),
-      images,
-      stock: Number(stock),
-      discountPercentage: Number(discountpercentage), // ✅ consistent naming
-      thumbnail,
-    };
+    try {
+      const updatedProduct = {
+        id: props.id,
+        title,
+        description,
+        category,
+        price,
+        rating,
+        images,
+        stock,
+        discountpercentage: discountpercentage,
+        thumbnail,
+      };
 
-    console.log("Submitting Product:", newProduct);
+      console.log("Updating Product:", updatedProduct);
 
-    const res = await fetch("/api/addProduct", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newProduct),
-    });
+      const res = await fetch(`/api/updateproduct`, {
+        method: "PUT", // ✅ use PUT/PATCH for updates
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedProduct),
+      });
 
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      const result = await res.json();
+
+      if (result.success) {
+        alert("✅ Product updated successfully!");
+      } else {
+        alert("⚠️ Failed to update product. Try again!");
+      }
+    } catch (error) {
+      console.error("Error updating product:", error);
+      alert("🚨 Something went wrong. Please try again.");
     }
-
-    const result = await res.json();
-
-    if (result.success) {
-      alert("✅ Product added successfully!");
-
-      // 🔄 Reset all states
-      setTitle("");
-      setDescription("");
-      setCategory("");
-      setPrice(0);
-      setRating(0);
-      setImages([]);
-      setStock(0);
-      setDiscountpercentage(0);
-      setThumbnail("");
-    } else {
-      alert("⚠️ Failed to add product. Try again!");
-    }
-  } catch (error) {
-    console.error("Error adding product:", error);
-    alert("🚨 Something went wrong. Please try again.");
-  }
-};
-
-
+  };
 
   return (
     <Dialog>
-      {/* ✅ Use a span instead of button to look like a menu item */}
       <DialogTrigger asChild>
-        <span className="text-sm text-gray-700 hover:text-indigo-600">
-          Add Product
-        </span>
+        <Button variant="secondary">
+          <Edit className="mr-2 h-4 w-4" />
+          Update Product
+        </Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[500px]">
         <form onSubmit={handleSubmit} className="space-y-4">
           <DialogHeader>
-            <DialogTitle>Add Product</DialogTitle>
+            <DialogTitle>Update Product</DialogTitle>
             <DialogDescription>
-              Fill out the details below to add a new product to the catalog.
+              Modify the details below to update this product.
             </DialogDescription>
           </DialogHeader>
 
           <div className="grid gap-4">
+            {/* Title */}
             <div className="grid gap-2">
               <Label htmlFor="title">Title</Label>
               <Input
@@ -111,6 +111,7 @@ export function AddProduct() {
               />
             </div>
 
+            {/* Description */}
             <div className="grid gap-2">
               <Label htmlFor="description">Description</Label>
               <Input
@@ -121,6 +122,7 @@ export function AddProduct() {
               />
             </div>
 
+            {/* Category */}
             <div className="grid gap-2">
               <Label htmlFor="category">Category</Label>
               <Input
@@ -130,6 +132,7 @@ export function AddProduct() {
               />
             </div>
 
+            {/* Price + Rating */}
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="price">Price</Label>
@@ -153,6 +156,7 @@ export function AddProduct() {
               </div>
             </div>
 
+            {/* Stock + Discount */}
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="stock">Stock</Label>
@@ -178,6 +182,7 @@ export function AddProduct() {
               </div>
             </div>
 
+            {/* Thumbnail */}
             <div className="grid gap-2">
               <Label htmlFor="thumbnail">Thumbnail URL</Label>
               <Input
@@ -187,6 +192,7 @@ export function AddProduct() {
               />
             </div>
 
+            {/* Images */}
             <div className="grid gap-2">
               <Label htmlFor="images">Images (comma separated URLs)</Label>
               <Input
@@ -203,7 +209,7 @@ export function AddProduct() {
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button type="submit">Save Product</Button>
+            <Button type="submit">Save Changes</Button>
           </DialogFooter>
         </form>
       </DialogContent>

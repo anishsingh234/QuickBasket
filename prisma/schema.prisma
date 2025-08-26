@@ -21,7 +21,7 @@ model Product {
   category           String
   price              Float
   rating             Float
-  images             String[]
+  images            String[]
   stock              Int
   discountpercentage Float
   thumbnail          String
