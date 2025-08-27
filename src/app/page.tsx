@@ -60,29 +60,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Womens Section */}
-      <section className="mt-12 px-6">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">
-            Grab the best deal on{" "}
-            <span className="text-blue-600">Women’s Collection</span>
-          </h2>
-          <button className="text-blue-600 text-sm font-medium hover:underline transition">
-            View All →
-          </button>
-        </div>
-
-        <div className="flex gap-6 overflow-x-auto scrollbar-hide pb-6">
-          {product2.map((elem, index) => (
-            <div
-              key={index}
-              className="flex-shrink-0 w-64 bg-white rounded-2xl shadow hover:shadow-lg transition duration-200"
-            >
-              <ProductCard product={elem} />
-            </div>
-          ))}
-        </div>
-      </section>
       <section className="mt-16 px-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-8">
           Explore <span className="text-blue-600">Top Picks</span>
@@ -112,7 +89,29 @@ export default async function HomePage() {
           />
         </div>
       </section>
+      {/* Womens Section */}
+      <section className="mt-12 px-6">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">
+            Grab the best deal on{" "}
+            <span className="text-blue-600">Women’s Collection</span>
+          </h2>
+          <button className="text-blue-600 text-sm font-medium hover:underline transition">
+            View All →
+          </button>
+        </div>
 
+        <div className="flex gap-6 overflow-x-auto scrollbar-hide pb-6">
+          {product2.map((elem, index) => (
+            <div
+              key={index}
+              className="flex-shrink-0 w-64 bg-white rounded-2xl shadow hover:shadow-lg transition duration-200"
+            >
+              <ProductCard product={elem} />
+            </div>
+          ))}
+        </div>
+      </section>
       {/* Footer */}
       <Footer />
     </div>

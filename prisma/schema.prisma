@@ -25,6 +25,7 @@ model Product {
   stock              Int
   discountpercentage Float
   thumbnail          String
+  
 }
 
 model User {
