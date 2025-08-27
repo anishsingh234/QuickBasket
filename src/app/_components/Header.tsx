@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -6,8 +7,11 @@ import { RiMenuSearchLine } from "react-icons/ri";
 import { IoIosBasket } from "react-icons/io";
 import UserDropDown from "./userDropDown";
 import SearchProduct from "./search";
-
+import { useContext } from "react";
+import { UserContext } from "../_context/UserContext";
 export default function Header() {
+  const { user } = useContext(UserContext);
+  const userId = user?.id;
   return (
     <header className="bg-indigo-500 text-white">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -29,7 +33,7 @@ export default function Header() {
         {/* Cart and User */}
         <div className="flex items-center gap-6 ml-4">
           <Link
-            href="/cart"
+            href={`/cart/${userId}`}
             className="flex items-center gap-1 hover:text-gray-100 transition"
           >
             <IoIosBasket size={24} />

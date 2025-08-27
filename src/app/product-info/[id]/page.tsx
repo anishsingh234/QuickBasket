@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart, CreditCard, Edit, Trash2 } from "lucide-react";
 import UpdateProduct from "@/app/_components/UpdateProduct";
 import DeleteProduct from "@/app/_components/DeleteProduct";
+import AddToCart from "@/app/_components/AddToCart";
+
+
 type Product = {
   id: string;
   title: string;
@@ -23,6 +26,10 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
   const id = params.id;
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  
+  
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -33,6 +40,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
     };
     fetchProduct();
   }, [id]);
+
   if (!product)
     return (
       <p className="flex justify-center items-center">
@@ -115,9 +123,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
 
         {/* Rating */}
         <div className="flex items-center gap-2 mb-3">
-          <span className="text-yellow-500">
-            ⭐ {product.rating.toFixed(1)}
-          </span>
+          <span className="text-yellow-500">⭐ {product.rating.toFixed(1)}</span>
           <p className="text-sm text-gray-500">(Stock: {product.stock})</p>
         </div>
 
@@ -126,12 +132,8 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
 
         {/* Action buttons */}
         <div className="flex flex-wrap gap-3 mt-6">
-          {/* Add to Cart */}
-          <Button className="bg-purple-600 hover:bg-purple-700 text-white">
-            <ShoppingCart className="mr-2 h-4 w-4" />
-            Add to Cart
-          </Button>
-
+          {/* 🛒 Add to Cart */}
+          <AddToCart prod={product}/>
           {/* Buy Now */}
           <Button
             variant="outline"

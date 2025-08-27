@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+import React, { useContext } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,8 +11,24 @@ import {
 import { LuCircleUserRound } from "react-icons/lu";
 import { FaUser, FaCreditCard, FaUsers, FaRegClipboard } from "react-icons/fa";
 import { AddProduct } from "./AddProduct";
+import { UserContext } from "../_context/UserContext";
+
+type UserWithoutPassword = {
+  id: string;
+  name: string;
+  email: string;
+};
 
 export default function UserDropDown() {
+  // ✅ Correct typing
+  const userContext = useContext(UserContext);
+
+  if (!userContext) {
+    return null; // or a fallback UI
+  }
+
+  const { user } = userContext as { user: UserWithoutPassword };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -30,10 +47,9 @@ export default function UserDropDown() {
 
         <DropdownMenuItem className="flex items-center gap-2 hover:bg-indigo-100 cursor-pointer">
           <FaUser className="h-4 w-4 text-gray-600" />
-          Profile
+          {user?.name}
         </DropdownMenuItem>
 
-        {/* ✅ Alternative approach: Use div without DropdownMenuItem */}
         <div className="px-2 py-1.5">
           <div className="flex items-center gap-2 hover:bg-indigo-100 cursor-pointer rounded px-2 py-1">
             <FaCreditCard className="h-4 w-4 text-gray-600" />
