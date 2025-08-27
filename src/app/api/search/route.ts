@@ -1,4 +1,3 @@
-
 import prismaClient from "@/db/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -16,10 +15,20 @@ export async function GET(req: NextRequest) {
   try {
     const results = await prismaClient.product.findMany({
       where: {
-        title: {
-          contains: query,
-          mode: "insensitive",
-        },
+        OR: [
+          {
+            title: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+          {
+            category: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+        ],
       },
     });
 
