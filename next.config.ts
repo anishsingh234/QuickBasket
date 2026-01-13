@@ -15,9 +15,12 @@ const nextConfig: NextConfig = {
   
   // Output configuration for deployment
   output: "standalone",
+
+  // Turbopack configuration
+  turbopack: {},
   
   // Fix Windows permission issues during build
-  webpack(config, { isServer }) {
+  webpack(config) {
     config.watchOptions = {
       ignored: [
         "**/node_modules/**",
