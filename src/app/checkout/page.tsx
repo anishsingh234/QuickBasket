@@ -207,13 +207,13 @@ function CheckoutContent() {
     return (
       <div className="min-h-screen bg-gray-50">
         <Header />
-        <div className="max-w-7xl mx-auto px-4 py-16 text-center">
-          <Package className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
-          <p className="text-gray-500 mb-6">Add some items to your cart before checkout</p>
+        <div className="max-w-7xl mx-auto px-4 py-10 sm:py-16 text-center">
+          <Package className="h-12 w-12 sm:h-16 sm:w-16 text-gray-300 mx-auto mb-4" />
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
+          <p className="text-gray-500 mb-6 text-sm sm:text-base">Add some items to your cart before checkout</p>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition"
+            className="inline-flex items-center gap-2 bg-indigo-600 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-indigo-700 transition text-sm sm:text-base"
           >
             Continue Shopping
           </Link>
@@ -229,19 +229,19 @@ function CheckoutContent() {
 
       {/* Breadcrumb */}
       <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <nav className="flex items-center gap-2 text-sm">
-            <Link href="/" className="text-gray-500 hover:text-indigo-600 transition">Home</Link>
-            <ChevronRight className="h-4 w-4 text-gray-400" />
-            <Link href={`/cart/${user?.id}`} className="text-gray-500 hover:text-indigo-600 transition">Cart</Link>
-            <ChevronRight className="h-4 w-4 text-gray-400" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3">
+          <nav className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm overflow-x-auto">
+            <Link href="/" className="text-gray-500 hover:text-indigo-600 transition whitespace-nowrap">Home</Link>
+            <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 text-gray-400 flex-shrink-0" />
+            <Link href={`/cart/${user?.id}`} className="text-gray-500 hover:text-indigo-600 transition whitespace-nowrap">Cart</Link>
+            <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 text-gray-400 flex-shrink-0" />
             <span className="text-gray-900 font-medium">Checkout</span>
           </nav>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h1>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-8">Checkout</h1>
 
         {error && (
           <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3">
@@ -251,13 +251,13 @@ function CheckoutContent() {
         )}
 
         <form onSubmit={handlePlaceOrder}>
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {/* Left Column - Forms */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-4 sm:space-y-6">
               {/* Shipping Address */}
-              <div className="bg-white rounded-xl shadow-sm p-6">
-                <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2 mb-6">
-                  <MapPin className="h-5 w-5 text-indigo-600" />
+              <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
+                <h2 className="text-base sm:text-lg font-semibold text-gray-900 flex items-center gap-2 mb-4 sm:mb-6">
+                  <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-indigo-600" />
                   Shipping Address
                 </h2>
 

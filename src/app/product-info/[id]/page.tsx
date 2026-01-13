@@ -74,25 +74,25 @@ export default function ProductDetail({ params }: { params: Promise<{ id: string
     <div className="min-h-screen bg-gray-50">
       {/* Breadcrumb */}
       <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <nav className="flex items-center gap-2 text-sm">
-            <Link href="/" className="text-gray-500 hover:text-indigo-600 transition">Home</Link>
-            <ChevronRight className="h-4 w-4 text-gray-400" />
-            <Link href={`/search?q=${product.category}`} className="text-gray-500 hover:text-indigo-600 transition capitalize">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3">
+          <nav className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm overflow-x-auto">
+            <Link href="/" className="text-gray-500 hover:text-indigo-600 transition whitespace-nowrap">Home</Link>
+            <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 text-gray-400 flex-shrink-0" />
+            <Link href={`/search?q=${product.category}`} className="text-gray-500 hover:text-indigo-600 transition capitalize whitespace-nowrap">
               {product.category}
             </Link>
-            <ChevronRight className="h-4 w-4 text-gray-400" />
-            <span className="text-gray-900 font-medium truncate max-w-[200px]">{product.title}</span>
+            <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 text-gray-400 flex-shrink-0" />
+            <span className="text-gray-900 font-medium truncate max-w-[150px] sm:max-w-[200px]">{product.title}</span>
           </nav>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-sm overflow-hidden">
           <div className="grid lg:grid-cols-2 gap-0">
             
             {/* Left: Image Gallery */}
-            <div className="p-6 lg:p-8 bg-gray-50">
+            <div className="p-4 sm:p-6 lg:p-8 bg-gray-50">
               {/* Main Image */}
               <div className="relative aspect-square rounded-xl overflow-hidden bg-white shadow-sm mb-4">
                 {selectedImage || product.thumbnail ? (
@@ -166,44 +166,44 @@ export default function ProductDetail({ params }: { params: Promise<{ id: string
             </div>
 
             {/* Right: Product Info */}
-            <div className="p-6 lg:p-8 flex flex-col">
+            <div className="p-4 sm:p-6 lg:p-8 flex flex-col">
               {/* Category */}
               <div className="mb-2">
-                <span className="inline-block bg-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide">
+                <span className="inline-block bg-indigo-100 text-indigo-700 text-[10px] sm:text-xs font-semibold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full uppercase tracking-wide">
                   {product.category}
                 </span>
               </div>
 
               {/* Title */}
-              <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
                 {product.title}
               </h1>
 
               {/* Rating */}
-              <div className="flex items-center gap-3 mb-4">
-                <div className="flex items-center gap-1 bg-green-100 text-green-700 px-2 py-1 rounded-md">
-                  <Star className="h-4 w-4 fill-current" />
-                  <span className="font-semibold">{product.rating.toFixed(1)}</span>
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                <div className="flex items-center gap-1 bg-green-100 text-green-700 px-2 py-0.5 sm:py-1 rounded-md">
+                  <Star className="h-3 w-3 sm:h-4 sm:w-4 fill-current" />
+                  <span className="font-semibold text-sm">{product.rating.toFixed(1)}</span>
                 </div>
-                <span className="text-gray-500 text-sm">1,234 Reviews</span>
-                <span className="text-gray-300">|</span>
-                <span className="text-gray-500 text-sm">5K+ Sold</span>
+                <span className="text-gray-500 text-xs sm:text-sm">1,234 Reviews</span>
+                <span className="text-gray-300 hidden sm:inline">|</span>
+                <span className="text-gray-500 text-xs sm:text-sm">5K+ Sold</span>
               </div>
 
               {/* Price Section */}
-              <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-4 mb-6">
-                <div className="flex items-baseline gap-3 mb-1">
-                  <span className="text-3xl font-bold text-gray-900">
+              <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg sm:rounded-xl p-3 sm:p-4 mb-4 sm:mb-6">
+                <div className="flex flex-wrap items-baseline gap-2 sm:gap-3 mb-1">
+                  <span className="text-2xl sm:text-3xl font-bold text-gray-900">
                     ₹{product.price.toFixed(2)}
                   </span>
-                  <span className="text-lg text-gray-400 line-through">
+                  <span className="text-sm sm:text-lg text-gray-400 line-through">
                     ₹{originalPrice}
                   </span>
-                  <span className="bg-green-500 text-white text-sm font-semibold px-2 py-0.5 rounded">
+                  <span className="bg-green-500 text-white text-xs sm:text-sm font-semibold px-2 py-0.5 rounded">
                     Save ₹{savings}
                   </span>
                 </div>
-                <p className="text-green-600 text-sm font-medium">
+                <p className="text-green-600 text-xs sm:text-sm font-medium">
                   Inclusive of all taxes
                 </p>
               </div>
@@ -268,41 +268,41 @@ export default function ProductDetail({ params }: { params: Promise<{ id: string
         </div>
 
         {/* Features Section */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-          <div className="bg-white rounded-xl p-4 flex items-center gap-3 shadow-sm">
-            <div className="bg-indigo-100 p-3 rounded-full">
-              <Truck className="h-5 w-5 text-indigo-600" />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 mt-4 sm:mt-8">
+          <div className="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 flex items-center gap-2 sm:gap-3 shadow-sm">
+            <div className="bg-indigo-100 p-2 sm:p-3 rounded-full flex-shrink-0">
+              <Truck className="h-4 w-4 sm:h-5 sm:w-5 text-indigo-600" />
             </div>
-            <div>
-              <p className="font-semibold text-gray-900 text-sm">Free Delivery</p>
-              <p className="text-gray-500 text-xs">On orders above ₹500</p>
-            </div>
-          </div>
-          <div className="bg-white rounded-xl p-4 flex items-center gap-3 shadow-sm">
-            <div className="bg-green-100 p-3 rounded-full">
-              <RotateCcw className="h-5 w-5 text-green-600" />
-            </div>
-            <div>
-              <p className="font-semibold text-gray-900 text-sm">Easy Returns</p>
-              <p className="text-gray-500 text-xs">30-day return policy</p>
+            <div className="min-w-0">
+              <p className="font-semibold text-gray-900 text-xs sm:text-sm">Free Delivery</p>
+              <p className="text-gray-500 text-[10px] sm:text-xs truncate">On orders above ₹500</p>
             </div>
           </div>
-          <div className="bg-white rounded-xl p-4 flex items-center gap-3 shadow-sm">
-            <div className="bg-purple-100 p-3 rounded-full">
-              <Shield className="h-5 w-5 text-purple-600" />
+          <div className="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 flex items-center gap-2 sm:gap-3 shadow-sm">
+            <div className="bg-green-100 p-2 sm:p-3 rounded-full flex-shrink-0">
+              <RotateCcw className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
             </div>
-            <div>
-              <p className="font-semibold text-gray-900 text-sm">Secure Payment</p>
-              <p className="text-gray-500 text-xs">100% protected</p>
+            <div className="min-w-0">
+              <p className="font-semibold text-gray-900 text-xs sm:text-sm">Easy Returns</p>
+              <p className="text-gray-500 text-[10px] sm:text-xs truncate">30-day return policy</p>
             </div>
           </div>
-          <div className="bg-white rounded-xl p-4 flex items-center gap-3 shadow-sm">
-            <div className="bg-orange-100 p-3 rounded-full">
-              <Package className="h-5 w-5 text-orange-600" />
+          <div className="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 flex items-center gap-2 sm:gap-3 shadow-sm">
+            <div className="bg-purple-100 p-2 sm:p-3 rounded-full flex-shrink-0">
+              <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600" />
             </div>
-            <div>
-              <p className="font-semibold text-gray-900 text-sm">Genuine Product</p>
-              <p className="text-gray-500 text-xs">Verified quality</p>
+            <div className="min-w-0">
+              <p className="font-semibold text-gray-900 text-xs sm:text-sm">Secure Payment</p>
+              <p className="text-gray-500 text-[10px] sm:text-xs truncate">100% protected</p>
+            </div>
+          </div>
+          <div className="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 flex items-center gap-2 sm:gap-3 shadow-sm">
+            <div className="bg-orange-100 p-2 sm:p-3 rounded-full flex-shrink-0">
+              <Package className="h-4 w-4 sm:h-5 sm:w-5 text-orange-600" />
+            </div>
+            <div className="min-w-0">
+              <p className="font-semibold text-gray-900 text-xs sm:text-sm">Genuine Product</p>
+              <p className="text-gray-500 text-[10px] sm:text-xs truncate">Verified quality</p>
             </div>
           </div>
         </div>

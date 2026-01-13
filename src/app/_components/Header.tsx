@@ -1,7 +1,7 @@
 "use client"
 import React, { useContext, useState, useEffect } from "react";
 import Link from "next/link";
-import { ShoppingBag, ShoppingCart } from "lucide-react";
+import { ShoppingBag, ShoppingCart, Menu, X } from "lucide-react";
 import UserDropDown from "./userDropDown";
 import SearchProduct from "./search";
 import { UserContext } from "../_context/UserContext";
@@ -10,6 +10,7 @@ export default function Header() {
   const { user } = useContext(UserContext);
   const userId = user?.id;
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,39 +26,54 @@ export default function Header() {
         ? 'bg-white/95 backdrop-blur-md shadow-md' 
         : 'bg-white shadow-sm'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-14 sm:h-16 gap-2 sm:gap-4">
           
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-2 rounded-xl">
-              <ShoppingBag className="h-5 w-5 text-white" />
+          <Link href="/" className="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
+            <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-1.5 sm:p-2 rounded-lg sm:rounded-xl">
+              <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             </div>
-            <h1 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-base sm:text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent hidden xs:block">
               QuickBasket
             </h1>
           </Link>
 
-          {/* Search bar */}
-          <div className="flex-1 max-w-xl mx-4 sm:mx-8">
+          {/* Search bar - Desktop */}
+          <div className="hidden sm:flex flex-1 max-w-xl mx-4 sm:mx-8">
             <SearchProduct />
           </div>
 
+          {/* Mobile Search Toggle */}
+          <button 
+            onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
+            className="sm:hidden p-2 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition"
+          >
+            {mobileSearchOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+
           {/* Cart and User */}
-          <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+          <div className="flex items-center gap-1 sm:gap-4 flex-shrink-0">
             <Link
               href={`/cart/${userId}`}
-              className="relative flex items-center gap-2 p-2 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition"
+              className="relative flex items-center gap-1 sm:gap-2 p-1.5 sm:p-2 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition"
             >
               <ShoppingCart className="h-5 w-5" />
               <span className="hidden sm:inline text-sm font-medium">Cart</span>
-              <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs font-bold h-5 w-5 flex items-center justify-center rounded-full">
+              <span className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 bg-indigo-600 text-white text-[10px] sm:text-xs font-bold h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center rounded-full">
                 0
               </span>
             </Link>
             <UserDropDown />
           </div>
         </div>
+
+        {/* Mobile Search - Expandable */}
+        {mobileSearchOpen && (
+          <div className="sm:hidden pb-3 px-1">
+            <SearchProduct />
+          </div>
+        )}
       </div>
     </header>
   );

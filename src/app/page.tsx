@@ -116,59 +116,59 @@ export default async function HomePage() {
         {/* Grid Pattern Overlay */}
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMtOS45NDEgMC0xOCA4LjA1OS0xOCAxOHM4LjA1OSAxOCAxOCAxOGM5Ljk0MSAwIDE4LTguMDU5IDE4LTE4cy04LjA1OS0xOC0xOC0xOHptMCAzMmMtNy43MzIgMC0xNC02LjI2OC0xNC0xNHM2LjI2OC0xNCAxNC0xNHMxNCA2LjI2OCAxNCAxNC02LjI2OCAxNC0xNCAxNHoiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyIvPjwvZz48L3N2Zz4=')] opacity-40"></div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24 xl:py-32">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left Content */}
             <div className="text-center lg:text-left">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-                <Sparkles className="h-4 w-4 text-yellow-400" />
-                <span className="text-white/90 text-sm font-medium">New Season Collection 2026</span>
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6">
+                <Sparkles className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-400" />
+                <span className="text-white/90 text-xs sm:text-sm font-medium">New Season Collection 2026</span>
               </div>
               
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 sm:mb-6">
                 Shop Smart,
                 <span className="block bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
                   Live Better
                 </span>
               </h1>
               
-              <p className="text-lg text-white/70 mb-8 max-w-lg mx-auto lg:mx-0">
+              <p className="text-base sm:text-lg text-white/70 mb-6 sm:mb-8 max-w-lg mx-auto lg:mx-0 px-4 sm:px-0">
                 Discover thousands of products at unbeatable prices. From groceries to electronics, 
                 we&apos;ve got everything you need delivered right to your doorstep.
               </p>
               
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start px-4 sm:px-0">
                 <Link 
                   href="/search?q=all"
-                  className="inline-flex items-center justify-center gap-2 bg-white text-indigo-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition shadow-xl shadow-black/20 group"
+                  className="inline-flex items-center justify-center gap-2 bg-white text-indigo-600 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-gray-100 transition shadow-xl shadow-black/20 group text-sm sm:text-base"
                 >
                   Start Shopping
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link 
                   href="/search?q=deals"
-                  className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition border border-white/20"
+                  className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-white/20 transition border border-white/20 text-sm sm:text-base"
                 >
-                  <Gift className="h-5 w-5" />
+                  <Gift className="h-4 w-4 sm:h-5 sm:w-5" />
                   Today&apos;s Deals
                 </Link>
               </div>
               
               {/* Trust Badges */}
-              <div className="flex flex-wrap gap-6 mt-10 justify-center lg:justify-start">
-                <div className="flex items-center gap-2 text-white/80">
-                  <CheckCircle className="h-5 w-5 text-emerald-400" />
-                  <span className="text-sm">Free Shipping</span>
+              <div className="flex flex-wrap gap-3 sm:gap-6 mt-6 sm:mt-10 justify-center lg:justify-start px-4 sm:px-0">
+                <div className="flex items-center gap-1.5 sm:gap-2 text-white/80">
+                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-400" />
+                  <span className="text-xs sm:text-sm">Free Shipping</span>
                 </div>
-                <div className="flex items-center gap-2 text-white/80">
-                  <CheckCircle className="h-5 w-5 text-emerald-400" />
-                  <span className="text-sm">Easy Returns</span>
+                <div className="flex items-center gap-1.5 sm:gap-2 text-white/80">
+                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-400" />
+                  <span className="text-xs sm:text-sm">Easy Returns</span>
                 </div>
-                <div className="flex items-center gap-2 text-white/80">
-                  <CheckCircle className="h-5 w-5 text-emerald-400" />
-                  <span className="text-sm">Secure Checkout</span>
+                <div className="flex items-center gap-1.5 sm:gap-2 text-white/80">
+                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-400" />
+                  <span className="text-xs sm:text-sm">Secure Checkout</span>
                 </div>
               </div>
             </div>
@@ -235,43 +235,43 @@ export default async function HomePage() {
       </section>
 
       {/* Features Bar */}
-      <section className="py-8 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-100">
+      <section className="py-4 sm:py-6 lg:py-8 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition">
-              <div className="bg-indigo-100 p-3 rounded-xl flex-shrink-0">
-                <Truck className="h-6 w-6 text-indigo-600" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+            <div className="flex items-center gap-2 sm:gap-4 p-2 sm:p-4 rounded-xl hover:bg-gray-50 transition">
+              <div className="bg-indigo-100 p-2 sm:p-3 rounded-xl flex-shrink-0">
+                <Truck className="h-4 w-4 sm:h-6 sm:w-6 text-indigo-600" />
               </div>
-              <div>
-                <p className="font-semibold text-gray-900">Free Delivery</p>
-                <p className="text-sm text-gray-500">Orders over ₹500</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition">
-              <div className="bg-emerald-100 p-3 rounded-xl flex-shrink-0">
-                <Shield className="h-6 w-6 text-emerald-600" />
-              </div>
-              <div>
-                <p className="font-semibold text-gray-900">Secure Payment</p>
-                <p className="text-sm text-gray-500">100% protected</p>
+              <div className="min-w-0">
+                <p className="font-semibold text-gray-900 text-xs sm:text-sm lg:text-base">Free Delivery</p>
+                <p className="text-[10px] sm:text-xs lg:text-sm text-gray-500 truncate">Orders over ₹500</p>
               </div>
             </div>
-            <div className="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition">
-              <div className="bg-amber-100 p-3 rounded-xl flex-shrink-0">
-                <Clock className="h-6 w-6 text-amber-600" />
+            <div className="flex items-center gap-2 sm:gap-4 p-2 sm:p-4 rounded-xl hover:bg-gray-50 transition">
+              <div className="bg-emerald-100 p-2 sm:p-3 rounded-xl flex-shrink-0">
+                <Shield className="h-4 w-4 sm:h-6 sm:w-6 text-emerald-600" />
               </div>
-              <div>
-                <p className="font-semibold text-gray-900">24/7 Support</p>
-                <p className="text-sm text-gray-500">Dedicated help</p>
+              <div className="min-w-0">
+                <p className="font-semibold text-gray-900 text-xs sm:text-sm lg:text-base">Secure Payment</p>
+                <p className="text-[10px] sm:text-xs lg:text-sm text-gray-500 truncate">100% protected</p>
               </div>
             </div>
-            <div className="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 transition">
-              <div className="bg-pink-100 p-3 rounded-xl flex-shrink-0">
-                <Gift className="h-6 w-6 text-pink-600" />
+            <div className="flex items-center gap-2 sm:gap-4 p-2 sm:p-4 rounded-xl hover:bg-gray-50 transition">
+              <div className="bg-amber-100 p-2 sm:p-3 rounded-xl flex-shrink-0">
+                <Clock className="h-4 w-4 sm:h-6 sm:w-6 text-amber-600" />
               </div>
-              <div>
-                <p className="font-semibold text-gray-900">Daily Deals</p>
-                <p className="text-sm text-gray-500">Save up to 70%</p>
+              <div className="min-w-0">
+                <p className="font-semibold text-gray-900 text-xs sm:text-sm lg:text-base">24/7 Support</p>
+                <p className="text-[10px] sm:text-xs lg:text-sm text-gray-500 truncate">Dedicated help</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 sm:gap-4 p-2 sm:p-4 rounded-xl hover:bg-gray-50 transition">
+              <div className="bg-pink-100 p-2 sm:p-3 rounded-xl flex-shrink-0">
+                <Gift className="h-4 w-4 sm:h-6 sm:w-6 text-pink-600" />
+              </div>
+              <div className="min-w-0">
+                <p className="font-semibold text-gray-900 text-xs sm:text-sm lg:text-base">Daily Deals</p>
+                <p className="text-[10px] sm:text-xs lg:text-sm text-gray-500 truncate">Save up to 70%</p>
               </div>
             </div>
           </div>
@@ -279,17 +279,17 @@ export default async function HomePage() {
       </section>
 
       {/* Featured Products Section */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-2 rounded-lg">
-              <Sparkles className="h-5 w-5 text-white" />
+      <section className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-6 sm:mb-8">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-1.5 sm:p-2 rounded-lg">
+              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             </div>
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
                 Featured Products
               </h2>
-              <p className="text-gray-500 text-sm mt-1">Handpicked just for you</p>
+              <p className="text-gray-500 text-xs sm:text-sm mt-0.5 sm:mt-1 hidden sm:block">Handpicked just for you</p>
             </div>
           </div>
           <Link 
@@ -301,7 +301,7 @@ export default async function HomePage() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
           {allProducts.slice(0, 8).map((product, index) => (
             <div key={product.id || index} className="transform hover:-translate-y-1 transition-transform duration-200">
               <ProductCard product={product} />
