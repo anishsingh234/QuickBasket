@@ -5,10 +5,16 @@ type payload = {
   role: string;
 };
 
-const JWT_SECRET = process.env.JWT_SECRET || "fallback-secret-key";
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET && process.env.NODE_ENV === "production") {
+  throw new Error("JWT_SECRET must be defined in production environment");
+}
+
+const SECRET = JWT_SECRET || "dev-secret-key-not-for-production";
 
 export function generateToken(data: payload) {
-  const token = jwt.sign(data, JWT_SECRET, {
+  const token = jwt.sign(data, SECRET, {
     expiresIn: "7d",
   });
   return token;
@@ -16,7 +22,7 @@ export function generateToken(data: payload) {
 
 export function verifyToken(token: string) {
   try {
-    const data = jwt.verify(token, JWT_SECRET);
+    const data = jwt.verify(token, SECRET);
     return data as payload;
   } catch (error) {
     return null;

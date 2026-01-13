@@ -68,7 +68,7 @@ function SearchContent() {
   const [searchInput, setSearchInput] = useState(query);
 
   // Filter states - Initialize from URL params
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(false); // Hidden by default on mobile
   const [viewMode, setViewMode] = useState<"grid" | "list">(
     (searchParams.get("view") as "grid" | "list") || "grid"
   );
@@ -384,47 +384,71 @@ function SearchContent() {
             </span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Sort Dropdown */}
             <div className="relative">
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortOption)}
-                className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2 pr-10 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer"
+                className="appearance-none bg-white border border-gray-300 rounded-lg px-2 sm:px-4 py-2 pr-8 sm:pr-10 text-xs sm:text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer max-w-[140px] sm:max-w-none"
               >
-                <option value="relevance">Sort by: Relevance</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="rating">Highest Rated</option>
-                <option value="discount">Biggest Discount</option>
-                <option value="newest">Newest First</option>
+                <option value="relevance">Relevance</option>
+                <option value="price-low">Price: Low-High</option>
+                <option value="price-high">Price: High-Low</option>
+                <option value="rating">Top Rated</option>
+                <option value="discount">Best Deals</option>
+                <option value="newest">Newest</option>
               </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500 pointer-events-none" />
+              <ChevronDown className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500 pointer-events-none" />
             </div>
 
-            {/* View Toggle */}
+            {/* View Toggle - Always visible */}
             <div className="flex bg-white border border-gray-300 rounded-lg overflow-hidden">
               <button
                 onClick={() => setViewMode("grid")}
-                className={`p-2 ${viewMode === "grid" ? "bg-indigo-100 text-indigo-600" : "text-gray-500 hover:bg-gray-50"}`}
+                className={`p-1.5 sm:p-2 ${viewMode === "grid" ? "bg-indigo-100 text-indigo-600" : "text-gray-500 hover:bg-gray-50"}`}
               >
-                <Grid3X3 className="h-5 w-5" />
+                <Grid3X3 className="h-4 w-4 sm:h-5 sm:w-5" />
               </button>
               <button
                 onClick={() => setViewMode("list")}
-                className={`p-2 ${viewMode === "list" ? "bg-indigo-100 text-indigo-600" : "text-gray-500 hover:bg-gray-50"}`}
+                className={`p-1.5 sm:p-2 ${viewMode === "list" ? "bg-indigo-100 text-indigo-600" : "text-gray-500 hover:bg-gray-50"}`}
               >
-                <List className="h-5 w-5" />
+                <List className="h-4 w-4 sm:h-5 sm:w-5" />
               </button>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-4 md:gap-6">
-          {/* Filters Sidebar */}
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
+          {/* Mobile Filter Overlay */}
           {showFilters && (
-            <div className="w-full md:w-64 flex-shrink-0">
-              <div className="bg-white rounded-xl shadow-sm p-4 md:p-5 md:sticky md:top-24 space-y-5 md:space-y-6 max-h-[70vh] md:max-h-none overflow-y-auto">
+            <div 
+              className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+              onClick={() => setShowFilters(false)}
+            />
+          )}
+          
+          {/* Filters Sidebar / Mobile Drawer */}
+          <div className={`
+            ${showFilters ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+            fixed lg:relative inset-y-0 left-0 z-50 lg:z-auto
+            w-[280px] sm:w-[320px] lg:w-64 flex-shrink-0
+            transform transition-transform duration-300 ease-in-out
+            lg:transform-none
+            ${!showFilters && 'lg:hidden'}
+          `}>
+            <div className="bg-white h-full lg:h-auto lg:rounded-xl shadow-xl lg:shadow-sm p-4 md:p-5 lg:sticky lg:top-24 space-y-5 md:space-y-6 overflow-y-auto">
+              {/* Mobile Header */}
+              <div className="flex items-center justify-between lg:hidden border-b pb-3 mb-2">
+                <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+                <button 
+                  onClick={() => setShowFilters(false)}
+                  className="p-2 hover:bg-gray-100 rounded-full"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
                 {/* Categories */}
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-3">Categories</h3>
@@ -536,7 +560,6 @@ function SearchContent() {
                   </div>
                 </div>
 
-                {/* Stock */}
                 <div className="space-y-3">
                   <h3 className="font-semibold text-gray-900">Availability</h3>
                   <label className="flex items-center gap-2 cursor-pointer group">
@@ -561,12 +584,30 @@ function SearchContent() {
                     <span className="text-sm text-gray-700 group-hover:text-indigo-600">On Sale Only</span>
                   </label>
                 </div>
+                
+                {/* Mobile Apply Button */}
+                <div className="lg:hidden pt-4 border-t mt-4">
+                  <Button 
+                    onClick={() => setShowFilters(false)}
+                    className="w-full bg-indigo-600 hover:bg-indigo-700"
+                  >
+                    Show {filteredResults.length} Results
+                  </Button>
+                  {hasActiveFilters && (
+                    <Button 
+                      variant="outline" 
+                      onClick={clearFilters}
+                      className="w-full mt-2"
+                    >
+                      Clear All Filters
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
-          )}
 
           {/* Results */}
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             {/* Active Filters Pills */}
             {hasActiveFilters && (
               <div className="flex flex-wrap gap-2 mb-4 p-3 bg-gray-100 rounded-lg md:bg-transparent md:p-0">
@@ -693,7 +734,7 @@ function SearchContent() {
 
             {/* Grid View */}
             {!loading && viewMode === "grid" && filteredResults.length > 0 && (
-              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 lg:gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-5">
                 {filteredResults.map((item) => {
                   const discountedPrice = getDiscountedPrice(
                     item.price,
