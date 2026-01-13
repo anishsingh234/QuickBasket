@@ -169,7 +169,7 @@ function SearchContent() {
         setFilteredResults([]);
       })
       .finally(() => setLoading(false));
-  }, [query]);
+  }, [query, searchParams]);
 
   // Apply filters and sorting with memoization
   useEffect(() => {
@@ -263,7 +263,7 @@ function SearchContent() {
     if (debouncedSearchInput !== query && debouncedSearchInput.trim()) {
       router.push(`/search?q=${encodeURIComponent(debouncedSearchInput.trim())}`);
     }
-  }, [debouncedSearchInput]);
+  }, [debouncedSearchInput, query, router]);
 
   const toggleCategory = (category: string) => {
     setSelectedCategories((prev) =>
@@ -341,7 +341,7 @@ function SearchContent() {
           </form>
           {query && (
             <p className="text-white/90 mt-3 text-center text-sm md:text-base">
-              Showing results for "<span className="font-semibold text-white">{query}</span>"
+              Showing results for &ldquo;<span className="font-semibold text-white">{query}</span>&rdquo;
               {!loading && (
                 <span className="block md:inline md:ml-2">
                   • {filteredResults.length} {filteredResults.length === 1 ? 'product' : 'products'} found
@@ -747,6 +747,7 @@ function SearchContent() {
                       <div className="bg-white rounded-lg md:rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group h-full flex flex-col">
                         {/* Image */}
                         <div className="relative aspect-square bg-gray-100 overflow-hidden">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={item.thumbnail || "/placeholder.png"}
                             alt={item.title}
@@ -832,6 +833,7 @@ function SearchContent() {
                       <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col sm:flex-row">
                         {/* Image */}
                         <div className="w-full sm:w-40 md:w-48 h-40 sm:h-40 md:h-48 flex-shrink-0 bg-gray-100 relative">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={item.thumbnail || "/placeholder.png"}
                             alt={item.title}

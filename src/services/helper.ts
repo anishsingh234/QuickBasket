@@ -27,7 +27,7 @@ export async function getUserFromCookies() {
     if (!user) return null;
 
     return user;
-  } catch (err) {
+  } catch {
     return null;
   }
 }
