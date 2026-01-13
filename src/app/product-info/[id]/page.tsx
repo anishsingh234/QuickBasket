@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -24,6 +24,7 @@ import {
 import UpdateProduct from "@/app/_components/UpdateProduct";
 import DeleteProduct from "@/app/_components/DeleteProduct";
 import AddToCart from "@/app/_components/AddToCart";
+import { UserContext } from "@/app/_context/UserContext";
 
 type Product = {
   id: string;
@@ -44,6 +45,7 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const { isStaff } = useContext(UserContext);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -258,11 +260,13 @@ export default function ProductDetail({ params }: { params: { id: string } }) {
                 <AddToCart prod={product} />
               </div>
 
-              {/* Admin Actions */}
-              <div className="flex gap-3 pt-4 border-t border-gray-200">
-                <UpdateProduct props={product} />
-                <DeleteProduct product={product} />
-              </div>
+              {/* Admin Actions - Only visible to STAFF */}
+              {isStaff && (
+                <div className="flex gap-3 pt-4 border-t border-gray-200">
+                  <UpdateProduct props={product} />
+                  <DeleteProduct product={product} />
+                </div>
+              )}
             </div>
           </div>
         </div>

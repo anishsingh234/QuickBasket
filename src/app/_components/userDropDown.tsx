@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User, Package, Heart, Settings, HelpCircle, LogOut, ChevronDown, Plus } from "lucide-react";
+import { User, Package, Heart, Settings, HelpCircle, LogOut, ChevronDown, Plus, Shield } from "lucide-react";
 import { AddProduct } from "./AddProduct";
 import { UserContext } from "../_context/UserContext";
 import { useRouter } from "next/navigation";
@@ -18,6 +18,7 @@ type UserWithoutPassword = {
   id: string;
   name: string;
   email: string;
+  role: "USER" | "STAFF";
 };
 
 export default function UserDropDown() {
@@ -43,7 +44,7 @@ export default function UserDropDown() {
     return null;
   }
 
-  const { user } = userContext as { user: UserWithoutPassword };
+  const { user, isStaff } = userContext;
 
   return (
     <DropdownMenu>
@@ -52,7 +53,7 @@ export default function UserDropDown() {
         aria-label="User Menu"
       >
         <div className="relative">
-          <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-1.5 rounded-full">
+          <div className={`p-1.5 rounded-full ${isStaff ? 'bg-gradient-to-br from-amber-500 to-orange-600' : 'bg-gradient-to-br from-indigo-500 to-purple-600'}`}>
             <User className="h-4 w-4 text-white" />
           </div>
           <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 bg-green-500 border-2 border-white rounded-full"></span>
@@ -65,34 +66,48 @@ export default function UserDropDown() {
 
       <DropdownMenuContent className="w-64 bg-white shadow-xl border border-gray-100 rounded-xl p-2" align="end">
         {/* User Info Header */}
-        <div className="px-3 py-3 mb-2 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg">
+        <div className={`px-3 py-3 mb-2 rounded-lg ${isStaff ? 'bg-gradient-to-r from-amber-50 to-orange-50' : 'bg-gradient-to-r from-indigo-50 to-purple-50'}`}>
           <div className="flex items-center gap-3">
-            <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-2.5 rounded-full">
+            <div className={`p-2.5 rounded-full ${isStaff ? 'bg-gradient-to-br from-amber-500 to-orange-600' : 'bg-gradient-to-br from-indigo-500 to-purple-600'}`}>
               <User className="h-5 w-5 text-white" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-semibold text-gray-900 truncate">{user?.name}</p>
+              <div className="flex items-center gap-2">
+                <p className="font-semibold text-gray-900 truncate">{user?.name}</p>
+                {isStaff && (
+                  <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-700 text-xs font-medium px-1.5 py-0.5 rounded">
+                    <Shield className="h-3 w-3" />
+                    Staff
+                  </span>
+                )}
+              </div>
               <p className="text-xs text-gray-500 truncate">{user?.email}</p>
             </div>
           </div>
         </div>
 
-        {/* Quick Actions */}
-        <div className="px-1 mb-2">
-          <div className="flex items-center gap-2 p-2 hover:bg-indigo-50 cursor-pointer rounded-lg transition">
-            <Plus className="h-4 w-4 text-indigo-600" />
-            <AddProduct />
-          </div>
-        </div>
-
-        <DropdownMenuSeparator className="bg-gray-100" />
+        {/* Staff Actions - Only visible to STAFF */}
+        {isStaff && (
+          <>
+            <div className="px-1 mb-2">
+              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-2 mb-1">Staff Actions</p>
+              <div className="flex items-center gap-2 p-2 hover:bg-amber-50 cursor-pointer rounded-lg transition">
+                <Plus className="h-4 w-4 text-amber-600" />
+                <AddProduct />
+              </div>
+            </div>
+            <DropdownMenuSeparator className="bg-gray-100" />
+          </>
+        )}
 
         {/* Menu Items */}
         <div className="py-1">
-          <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 hover:bg-gray-50 cursor-pointer rounded-lg transition">
-            <Package className="h-4 w-4 text-gray-500" />
-            <span className="text-gray-700">My Orders</span>
-          </DropdownMenuItem>
+          <Link href="/orders">
+            <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 hover:bg-gray-50 cursor-pointer rounded-lg transition">
+              <Package className="h-4 w-4 text-gray-500" />
+              <span className="text-gray-700">My Orders</span>
+            </DropdownMenuItem>
+          </Link>
 
           <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 hover:bg-gray-50 cursor-pointer rounded-lg transition">
             <Heart className="h-4 w-4 text-gray-500" />

@@ -202,12 +202,14 @@ export default function CartPage() {
               </div>
             </div>
 
-            <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white py-4 text-lg font-semibold rounded-xl transition-colors">
-              Proceed to Checkout
-            </Button>
+            <Link href="/checkout">
+              <Button className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white py-6 text-lg font-semibold rounded-xl transition-all shadow-lg hover:shadow-xl">
+                Proceed to Checkout
+              </Button>
+            </Link>
 
             <p className="text-xs text-gray-500 text-center mt-4">
-              Secure checkout powered by Stripe
+              🔒 Secure checkout • Multiple payment options
             </p>
           </div>
         </div>

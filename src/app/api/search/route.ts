@@ -28,7 +28,16 @@ export async function GET(req: NextRequest) {
               mode: "insensitive",
             },
           },
+          {
+            description: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
         ],
+      },
+      orderBy: {
+        rating: "desc",
       },
     });
 

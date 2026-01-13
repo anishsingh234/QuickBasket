@@ -4,15 +4,17 @@ import { useState, useContext } from "react";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { UserContext } from "../_context/UserContext";
+import { useToast } from "../_context/ToastContext";
 
 export default function AddToCart({ prod }: { prod: any }) {
   const [loading, setLoading] = useState(false);
   const { user } = useContext(UserContext);
+  const { success, error, warning } = useToast();
   const userId = user?.id;
 
   const handleAddToCart = async () => {
     if (!userId || !prod?.id) {
-      alert("⚠️ Please login first!");
+      warning("Please login first!");
       return;
     }
 
@@ -32,13 +34,13 @@ export default function AddToCart({ prod }: { prod: any }) {
 
       const data = await res.json();
       if (data.success) {
-        alert(`✅ ${prod.title} added to cart!`);
+        success(`${prod.title} added to cart!`);
       } else {
-        alert("❌ Failed to add to cart");
+        error("Failed to add to cart");
       }
     } catch (err) {
       console.error(err);
-      alert("❌ Something went wrong");
+      error("Something went wrong");
     } finally {
       setLoading(false);
     }

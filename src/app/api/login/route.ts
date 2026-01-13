@@ -46,13 +46,13 @@ export async function POST(req: NextRequest) {
     }
 
     // generate token
-    const token = generateToken({ id: user.id });
+    const token = generateToken({ id: user.id, role: user.role });
 
     // set cookie with token
     const response = NextResponse.json({
       success: true,
       message: "Login successful",
-      date: { id: user.id, name: user.name, email: user.email },
+      data: { id: user.id, name: user.name, email: user.email, role: user.role },
     });
 
     response.cookies.set("token", token, {

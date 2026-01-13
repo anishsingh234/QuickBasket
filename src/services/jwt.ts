@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 
 type payload = {
   id: string;
+  role: string;
 };
 
 const JWT_SECRET = process.env.JWT_SECRET || "fallback-secret-key";

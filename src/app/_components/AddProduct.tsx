@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "../_context/ToastContext";
 
 export function AddProduct() {
   const [title, setTitle] = useState("");
@@ -25,6 +26,7 @@ export function AddProduct() {
   const [stock, setStock] = useState<number>(0);
   const [discountpercentage, setDiscountpercentage] = useState<number>(0);
   const [thumbnail, setThumbnail] = useState("");
+  const { success, error, warning } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
@@ -38,7 +40,7 @@ export function AddProduct() {
       rating: Number(rating),
       images,
       stock: Number(stock),
-      discountPercentage: Number(discountpercentage), // ✅ consistent naming
+      discountPercentage: Number(discountpercentage),
       thumbnail,
     };
 
@@ -59,9 +61,9 @@ export function AddProduct() {
     const result = await res.json();
 
     if (result.success) {
-      alert("✅ Product added successfully!");
+      success("Product added successfully!");
 
-      // 🔄 Reset all states
+      // Reset all states
       setTitle("");
       setDescription("");
       setCategory("");
@@ -72,11 +74,11 @@ export function AddProduct() {
       setDiscountpercentage(0);
       setThumbnail("");
     } else {
-      alert("⚠️ Failed to add product. Try again!");
+      warning("Failed to add product. Try again!");
     }
-  } catch (error) {
-    console.error("Error adding product:", error);
-    alert("🚨 Something went wrong. Please try again.");
+  } catch (err) {
+    console.error("Error adding product:", err);
+    error("Something went wrong. Please try again.");
   }
 };
 

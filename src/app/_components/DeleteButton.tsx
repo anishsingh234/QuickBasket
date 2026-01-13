@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
+import { useToast } from "../_context/ToastContext";
 
 export default function DeleteButton({
   userId,
@@ -14,6 +15,7 @@ export default function DeleteButton({
   onDeleted: (productId: string) => void;
 }) {
   const [loading, setLoading] = useState(false);
+  const { error } = useToast();
 
   const handleDelete = async () => {
     setLoading(true);
@@ -23,18 +25,18 @@ export default function DeleteButton({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userId, productId }), // ✅ match API route
+        body: JSON.stringify({ userId, productId }),
       });
 
       const data = await res.json();
       if (data.success) {
         onDeleted(productId);
       } else {
-        alert("❌ Failed to delete item");
+        error("Failed to delete item");
       }
     } catch (err) {
       console.error("Delete error:", err);
-      alert("❌ Something went wrong");
+      error("Something went wrong");
     } finally {
       setLoading(false);
     }

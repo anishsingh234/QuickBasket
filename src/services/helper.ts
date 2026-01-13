@@ -16,13 +16,24 @@ export async function getUserFromCookies() {
     // Database se user fetch karna
     const user = await prismaClient.user.findUnique({
       where: { id: data.id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+      },
     });
 
     if (!user) return null;
 
-    const { password, ...userWithPassword } = user;
-    return userWithPassword;
+    return user;
   } catch (err) {
     return null;
   }
+}
+
+// Check if user is staff from request cookies
+export async function isStaffUser(): Promise<boolean> {
+  const user = await getUserFromCookies();
+  return user?.role === "STAFF";
 }

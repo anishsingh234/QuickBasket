@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Product } from "../../../generated/prisma";
 import { Trash2, AlertTriangle, X, Loader2 } from "lucide-react";
+import { useToast } from "../_context/ToastContext";
 
 export default function DeleteProduct({
   product,
@@ -26,6 +27,7 @@ export default function DeleteProduct({
 }) {
   const [confirmText, setConfirmText] = useState("");
   const [loading, setLoading] = useState(false);
+  const { success, error, warning } = useToast();
 
   const handleDelete = async () => {
     setLoading(true);
@@ -38,14 +40,14 @@ export default function DeleteProduct({
 
       const result = await res.json();
       if (result.success) {
-        alert("✅ Product deleted successfully!");
+        success("Product deleted successfully!");
         window.location.href = "/";
       } else {
-        alert("⚠️ Failed to delete product.");
+        warning("Failed to delete product.");
       }
-    } catch (error) {
-      console.error("Delete error:", error);
-      alert("🚨 Something went wrong.");
+    } catch (err) {
+      console.error("Delete error:", err);
+      error("Something went wrong.");
     } finally {
       setLoading(false);
     }

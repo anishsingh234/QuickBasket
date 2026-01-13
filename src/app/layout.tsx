@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { getUserFromCookies } from "@/services/helper";
 import UserProvider from "./_context/UserContext";
+import { ToastProvider } from "./_context/ToastContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,6 +24,7 @@ type UserWithoutPassword = {
   id: string;
   name: string;
   email: string;
+  role: "USER" | "STAFF";
 };
 
 export default async function RootLayout({
@@ -34,13 +36,15 @@ export default async function RootLayout({
 
   return (
     <UserProvider user={user ?? undefined}>
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+      <ToastProvider>
+        <html lang="en">
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            {children}
+          </body>
+        </html>
+      </ToastProvider>
     </UserProvider>
   );
 }

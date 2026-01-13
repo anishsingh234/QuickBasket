@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Product } from "../../../generated/prisma";
 import { Edit, Save, X, Package, DollarSign, Star, Percent, ImageIcon, Loader2 } from "lucide-react";
+import { useToast } from "../_context/ToastContext";
 
 export default function UpdateProduct({
   props,
@@ -36,6 +37,7 @@ export default function UpdateProduct({
   );
   const [thumbnail, setThumbnail] = useState(props.thumbnail || "");
   const [loading, setLoading] = useState(false);
+  const { success, error, warning } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,14 +72,14 @@ export default function UpdateProduct({
       const result = await res.json();
 
       if (result.success) {
-        alert("✅ Product updated successfully!");
+        success("Product updated successfully!");
         window.location.reload();
       } else {
-        alert("⚠️ Failed to update product. Try again!");
+        warning("Failed to update product. Try again!");
       }
-    } catch (error) {
-      console.error("Error updating product:", error);
-      alert("🚨 Something went wrong. Please try again.");
+    } catch (err) {
+      console.error("Error updating product:", err);
+      error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
