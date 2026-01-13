@@ -30,7 +30,7 @@ interface Product {
   discountpercentage: number;
   rating: number;
   stock: number;
-  brand: string;
+  brand?: string;
   category: string;
   thumbnail: string;
   images: string[];
