@@ -4,22 +4,14 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User, Package, LogOut, ChevronDown, Plus, Shield } from "lucide-react";
+import { User, Package, Heart, Settings, HelpCircle, LogOut, ChevronDown, Plus, Shield } from "lucide-react";
 import { AddProduct } from "./AddProduct";
 import { UserContext } from "../_context/UserContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
-type UserWithoutPassword = {
-  id: string;
-  name: string;
-  email: string;
-  role: "USER" | "STAFF";
-};
 
 export default function UserDropDown() {
   const userContext = useContext(UserContext);

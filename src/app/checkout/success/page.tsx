@@ -190,7 +190,7 @@ function OrderSuccessContent() {
               </div>
               <div>
                 <p className="font-medium text-gray-600">Processing</p>
-                <p className="text-sm text-gray-400">We're preparing your order</p>
+                <p className="text-sm text-gray-400">We&apos;re preparing your order</p>
               </div>
             </div>
 

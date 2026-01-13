@@ -1,7 +1,6 @@
 import prismaClient from "@/db/prisma";
 import { NextResponse } from "next/server";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET() {
 
     const product=await prismaClient.product.findMany({
