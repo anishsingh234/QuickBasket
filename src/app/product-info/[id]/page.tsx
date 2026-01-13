@@ -20,6 +20,7 @@ import UpdateProduct from "@/app/_components/UpdateProduct";
 import DeleteProduct from "@/app/_components/DeleteProduct";
 import AddToCart from "@/app/_components/AddToCart";
 import { UserContext } from "@/app/_context/UserContext";
+import { use } from "react";
 
 type Product = {
   id: string;
@@ -34,8 +35,8 @@ type Product = {
   images: string[];
 };
 
-export default function ProductDetail({ params }: { params: { id: string } }) {
-  const id = params.id;
+export default function ProductDetail({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
