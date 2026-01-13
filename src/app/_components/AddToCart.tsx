@@ -6,7 +6,13 @@ import { ShoppingCart } from "lucide-react";
 import { UserContext } from "../_context/UserContext";
 import { useToast } from "../_context/ToastContext";
 
-export default function AddToCart({ prod }: { prod: any }) {
+interface Product {
+  id: string;
+  title: string;
+  price: number;
+}
+
+export default function AddToCart({ prod }: { prod: Product }) {
   const [loading, setLoading] = useState(false);
   const { user } = useContext(UserContext);
   const { success, error, warning } = useToast();

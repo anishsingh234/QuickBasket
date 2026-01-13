@@ -25,6 +25,7 @@ import Footer from "@/app/_components/Footer";
 import { UserContext } from "@/app/_context/UserContext";
 
 // Initialize Stripe
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 type CartItem = {

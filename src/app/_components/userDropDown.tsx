@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User, Package, Heart, Settings, HelpCircle, LogOut, ChevronDown, Plus, Shield } from "lucide-react";
+import { User, Package, LogOut, ChevronDown, Plus, Shield } from "lucide-react";
 import { AddProduct } from "./AddProduct";
 import { UserContext } from "../_context/UserContext";
 import { useRouter } from "next/navigation";

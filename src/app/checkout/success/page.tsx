@@ -27,6 +27,7 @@ function OrderSuccessContent() {
   const sessionId = searchParams.get("session_id"); // From Stripe
 
   const [orderNumber, setOrderNumber] = useState(orderNumberParam || "");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [orderId, setOrderId] = useState(orderIdParam || "");
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -132,7 +133,7 @@ function OrderSuccessContent() {
             {sessionId ? "Payment Successful! 🎉" : "Order Placed Successfully! 🎉"}
           </h1>
           <p className="text-gray-600">
-            Thank you for your order. We've received your order and will begin processing it soon.
+            Thank you for your order. We&apos;ve received your order and will begin processing it soon.
           </p>
         </div>
 
@@ -211,15 +212,15 @@ function OrderSuccessContent() {
           <ul className="space-y-2 text-sm text-indigo-800">
             <li className="flex items-start gap-2">
               <CheckCircle className="h-4 w-4 text-indigo-600 mt-0.5 flex-shrink-0" />
-              You'll receive an order confirmation email shortly
+              You&apos;ll receive an order confirmation email shortly
             </li>
             <li className="flex items-start gap-2">
               <CheckCircle className="h-4 w-4 text-indigo-600 mt-0.5 flex-shrink-0" />
-              We'll notify you when your order ships
+              We&apos;ll notify you when your order ships
             </li>
             <li className="flex items-start gap-2">
               <CheckCircle className="h-4 w-4 text-indigo-600 mt-0.5 flex-shrink-0" />
-              Track your order anytime from "My Orders"
+              Track your order anytime from &quot;My Orders&quot;
             </li>
           </ul>
         </div>

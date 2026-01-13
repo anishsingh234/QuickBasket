@@ -7,7 +7,6 @@ import {
   DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -93,7 +92,7 @@ export default function DeleteProduct({
                 <p className="text-sm text-red-800 font-medium">Warning</p>
                 <p className="text-sm text-red-600 mt-1">
                   You are about to permanently delete{" "}
-                  <span className="font-bold">"{product.title}"</span>. 
+                  <span className="font-bold">&quot;{product.title}&quot;</span>. 
                   This will remove all associated data.
                 </p>
               </div>
@@ -115,7 +114,7 @@ export default function DeleteProduct({
               } ${isConfirmed ? 'border-green-300 bg-green-50' : ''}`}
             />
             {confirmText && !isConfirmed && (
-              <p className="text-xs text-red-500">Product name doesn't match</p>
+              <p className="text-xs text-red-500">Product name doesn&apos;t match</p>
             )}
             {isConfirmed && (
               <p className="text-xs text-green-600">✓ Confirmed - ready to delete</p>

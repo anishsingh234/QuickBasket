@@ -88,6 +88,7 @@ export default function MyOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedOrder, setExpandedOrder] = useState<string | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { user } = useContext(UserContext);
 
   useEffect(() => {
@@ -162,7 +163,7 @@ export default function MyOrdersPage() {
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">No orders yet</h2>
             <p className="text-gray-500 mb-6 max-w-md mx-auto">
-              Looks like you haven't placed any orders. Start shopping to see your orders here!
+              Looks like you haven&apos;t placed any orders. Start shopping to see your orders here!
             </p>
             <Link 
               href="/"

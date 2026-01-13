@@ -9,7 +9,6 @@ import {
   ShoppingBag, 
   Truck, 
   Shield, 
-  HeadphonesIcon, 
   ArrowRight, 
   Sparkles, 
   TrendingUp, 
@@ -23,13 +22,27 @@ import {
   Percent
 } from "lucide-react";
 
+interface Product {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  discountpercentage: number;
+  rating: number;
+  stock: number;
+  brand: string;
+  category: string;
+  thumbnail: string;
+  images: string[];
+}
+
 export default async function HomePage() {
-  let sportsProducts: any[] = [];
-  let electronicsProducts: any[] = [];
-  let groceriesProducts: any[] = [];
-  let vehicleProducts: any[] = [];
-  let furnitureProducts: any[] = [];
-  let allProducts: any[] = [];
+  let sportsProducts: Product[] = [];
+  let electronicsProducts: Product[] = [];
+  let groceriesProducts: Product[] = [];
+  let vehicleProducts: Product[] = [];
+  let furnitureProducts: Product[] = [];
+  let allProducts: Product[] = [];
   
   try {
     const [sports, electronics, groceries, vehicles, furniture, all] = await Promise.all([

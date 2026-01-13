@@ -3,12 +3,9 @@
 import { useState, useEffect, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { 
   ShoppingCart, 
   CreditCard, 
-  Edit, 
-  Trash2, 
   Star, 
   Truck, 
   Shield, 

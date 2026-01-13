@@ -16,10 +16,10 @@ export async function DELETE(req: Request) {
     });
 
     return NextResponse.json({ success: true, message: "Item deleted" });
-  } catch (err: any) {
+  } catch (err) {
     console.error("Delete error:", err);
     return NextResponse.json(
-      { success: false, error: err.message },
+      { success: false, error: err instanceof Error ? err.message : "Unknown error" },
       { status: 500 }
     );
   }

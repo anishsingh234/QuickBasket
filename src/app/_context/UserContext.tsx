@@ -1,7 +1,6 @@
 "use client";
 
 import React, { createContext, ReactNode } from "react";
-import { useState } from "react";
 
 type UserWithoutPassword = {
   id: string;

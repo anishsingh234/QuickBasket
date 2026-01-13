@@ -39,7 +39,7 @@ const LoginPage = () => {
       } else {
         setError(result.message || "Invalid email or password");
       }
-    } catch (err) {
+    } catch {
       setError("Login failed. Please try again.");
     } finally {
       setIsLoading(false);
@@ -222,7 +222,7 @@ const LoginPage = () => {
 
             {/* Sign Up Link */}
             <p className="text-center text-gray-600 mt-8">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href="/sign-up" className="text-indigo-600 hover:text-indigo-800 font-semibold transition-colors">
                 Create account
               </Link>

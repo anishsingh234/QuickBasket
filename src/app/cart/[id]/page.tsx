@@ -75,7 +75,7 @@ export default function CartPage() {
             <ShoppingCart className="w-12 h-12 text-gray-400" />
           </div>
           <h2 className="text-2xl font-semibold text-gray-900 mb-2">Your cart is empty</h2>
-          <p className="text-gray-500 mb-8">Looks like you haven't added any items to your cart yet.</p>
+          <p className="text-gray-500 mb-8">Looks like you haven&apos;t added any items to your cart yet.</p>
           <Link href="/" className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3">
             Continue Shopping
           </Link>
@@ -105,7 +105,7 @@ export default function CartPage() {
         {/* Cart Items */}
         <div className="lg:col-span-2">
           <div className="space-y-4">
-            {cartItems.map((item, index) => (
+            {cartItems.map((item) => (
               <div
                 key={item.id}
                 className="group bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-200"
