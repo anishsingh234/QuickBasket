@@ -318,8 +318,11 @@ function SearchContent() {
       <Header />
 
       {/* Search Bar Section */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 py-8">
+      <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 py-6 md:py-10">
         <div className="max-w-4xl mx-auto px-4">
+          <h1 className="text-white text-2xl md:text-3xl font-bold text-center mb-4">
+            {query ? `Search Results` : 'Find Products'}
+          </h1>
           <form onSubmit={handleSearch} className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
             <input
@@ -327,36 +330,40 @@ function SearchContent() {
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search for products..."
-              className="w-full pl-12 pr-32 py-4 rounded-xl text-lg border-0 shadow-lg focus:ring-2 focus:ring-white/50 outline-none"
+              className="w-full pl-12 pr-4 md:pr-32 py-3 md:py-4 rounded-xl text-base md:text-lg border-0 shadow-lg focus:ring-2 focus:ring-white/50 outline-none"
             />
             <Button
               type="submit"
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-indigo-600 hover:bg-indigo-700"
+              className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 bg-indigo-600 hover:bg-indigo-700"
             >
               Search
             </Button>
           </form>
           {query && (
-            <p className="text-white/80 mt-3 text-center">
+            <p className="text-white/90 mt-3 text-center text-sm md:text-base">
               Showing results for "<span className="font-semibold text-white">{query}</span>"
-              {!loading && ` • ${filteredResults.length} products found`}
+              {!loading && (
+                <span className="block md:inline md:ml-2">
+                  • {filteredResults.length} {filteredResults.length === 1 ? 'product' : 'products'} found
+                </span>
+              )}
             </p>
           )}
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="max-w-7xl mx-auto px-4 py-4 md:py-6">
         {/* Toolbar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-4 md:mb-6">
+          <div className="flex items-center gap-2 md:gap-3">
             <Button
               variant="outline"
               size="sm"
               onClick={() => setShowFilters(!showFilters)}
-              className="gap-2"
+              className="gap-2 text-sm"
             >
               <SlidersHorizontal className="h-4 w-4" />
-              Filters
+              <span className="hidden sm:inline">Filters</span>
               {hasActiveFilters && (
                 <span className="bg-indigo-600 text-white text-xs px-1.5 py-0.5 rounded-full">
                   {activeFilterCount}
@@ -365,11 +372,16 @@ function SearchContent() {
             </Button>
 
             {hasActiveFilters && (
-              <Button variant="ghost" size="sm" onClick={clearFilters} className="text-red-600 hover:text-red-700">
+              <Button variant="ghost" size="sm" onClick={clearFilters} className="text-red-600 hover:text-red-700 text-sm">
                 <X className="h-4 w-4 mr-1" />
-                Clear all
+                <span className="hidden sm:inline">Clear all</span>
               </Button>
             )}
+            
+            {/* Results count on mobile */}
+            <span className="text-sm text-gray-500 md:hidden">
+              {filteredResults.length} results
+            </span>
           </div>
 
           <div className="flex items-center gap-3">
@@ -408,11 +420,11 @@ function SearchContent() {
           </div>
         </div>
 
-        <div className="flex gap-6">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6">
           {/* Filters Sidebar */}
           {showFilters && (
-            <div className="w-64 flex-shrink-0">
-              <div className="bg-white rounded-xl shadow-sm p-5 sticky top-24 space-y-6">
+            <div className="w-full md:w-64 flex-shrink-0">
+              <div className="bg-white rounded-xl shadow-sm p-4 md:p-5 md:sticky md:top-24 space-y-5 md:space-y-6 max-h-[70vh] md:max-h-none overflow-y-auto">
                 {/* Categories */}
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-3">Categories</h3>
@@ -557,64 +569,64 @@ function SearchContent() {
           <div className="flex-1">
             {/* Active Filters Pills */}
             {hasActiveFilters && (
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-2 mb-4 p-3 bg-gray-100 rounded-lg md:bg-transparent md:p-0">
                 {selectedCategories.map((cat) => (
                   <span
                     key={cat}
-                    className="inline-flex items-center gap-1 px-3 py-1 bg-indigo-100 text-indigo-800 text-sm rounded-full"
+                    className="inline-flex items-center gap-1 px-2.5 py-1 bg-indigo-100 text-indigo-800 text-xs md:text-sm rounded-full"
                   >
                     <Tag className="w-3 h-3" />
-                    {cat}
+                    <span className="capitalize">{cat}</span>
                     <button
                       onClick={() => removeCategory(cat)}
-                      className="ml-1 hover:text-indigo-600"
+                      className="ml-0.5 hover:text-indigo-600"
                     >
                       <X className="w-3 h-3" />
                     </button>
                   </span>
                 ))}
                 {(priceRange[0] > 0 || priceRange[1] < maxPriceBound) && (
-                  <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-green-100 text-green-800 text-xs md:text-sm rounded-full">
                     ${priceRange[0]} - ${priceRange[1]}
                     <button
                       onClick={() => setPriceRange([0, maxPriceBound])}
-                      className="ml-1 hover:text-green-600"
+                      className="ml-0.5 hover:text-green-600"
                     >
                       <X className="w-3 h-3" />
                     </button>
                   </span>
                 )}
                 {minRating > 0 && (
-                  <span className="inline-flex items-center gap-1 px-3 py-1 bg-yellow-100 text-yellow-800 text-sm rounded-full">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-yellow-100 text-yellow-800 text-xs md:text-sm rounded-full">
                     <Star className="w-3 h-3 fill-current" />
                     {minRating}+ stars
                     <button
                       onClick={() => setMinRating(0)}
-                      className="ml-1 hover:text-yellow-600"
+                      className="ml-0.5 hover:text-yellow-600"
                     >
                       <X className="w-3 h-3" />
                     </button>
                   </span>
                 )}
                 {inStockOnly && (
-                  <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-blue-100 text-blue-800 text-xs md:text-sm rounded-full">
                     <Package className="w-3 h-3" />
                     In Stock
                     <button
                       onClick={() => setInStockOnly(false)}
-                      className="ml-1 hover:text-blue-600"
+                      className="ml-0.5 hover:text-blue-600"
                     >
                       <X className="w-3 h-3" />
                     </button>
                   </span>
                 )}
                 {discountOnly && (
-                  <span className="inline-flex items-center gap-1 px-3 py-1 bg-red-100 text-red-800 text-sm rounded-full">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-red-100 text-red-800 text-xs md:text-sm rounded-full">
                     <Percent className="w-3 h-3" />
                     On Sale
                     <button
                       onClick={() => setDiscountOnly(false)}
-                      className="ml-1 hover:text-red-600"
+                      className="ml-0.5 hover:text-red-600"
                     >
                       <X className="w-3 h-3" />
                     </button>
@@ -625,35 +637,42 @@ function SearchContent() {
 
             {/* Loading State */}
             {loading && (
-              <div className="flex items-center justify-center py-20">
-                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600"></div>
-                <span className="ml-3 text-gray-600">Searching products...</span>
+              <div className="flex flex-col items-center justify-center py-16 md:py-20">
+                <div className="relative">
+                  <div className="animate-spin rounded-full h-12 w-12 border-4 border-indigo-200 border-t-indigo-600"></div>
+                </div>
+                <span className="mt-4 text-gray-600 font-medium">Searching products...</span>
               </div>
             )}
 
             {/* Error State */}
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-                <div className="flex items-center">
-                  <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
-                  <p className="text-red-700">{error}</p>
+              <div className="bg-red-50 border border-red-200 rounded-xl p-4 md:p-6 mb-6">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-red-800 font-medium">Something went wrong</p>
+                    <p className="text-red-700 text-sm mt-1">{error}</p>
+                  </div>
                 </div>
               </div>
             )}
 
             {/* No Results */}
             {!loading && !error && query && filteredResults.length === 0 && (
-              <div className="text-center py-20">
-                <Package className="w-20 h-20 text-gray-300 mx-auto mb-4" />
-                <p className="text-xl font-medium text-gray-700 mb-2">No products found</p>
-                <p className="text-gray-500 mb-4">
+              <div className="text-center py-12 md:py-20 bg-white rounded-xl shadow-sm">
+                <div className="w-20 h-20 md:w-24 md:h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Package className="w-10 h-10 md:w-12 md:h-12 text-gray-400" />
+                </div>
+                <p className="text-lg md:text-xl font-semibold text-gray-800 mb-2">No products found</p>
+                <p className="text-gray-500 mb-6 max-w-md mx-auto px-4">
                   {hasActiveFilters
-                    ? "Try adjusting your filters"
-                    : "Try a different search term"}
+                    ? "We couldn't find products matching your filters. Try adjusting them."
+                    : `No results for "${query}". Try a different search term.`}
                 </p>
                 {hasActiveFilters && (
-                  <Button variant="outline" onClick={clearFilters}>
-                    Clear Filters
+                  <Button onClick={clearFilters} className="bg-indigo-600 hover:bg-indigo-700">
+                    Clear All Filters
                   </Button>
                 )}
               </div>
@@ -661,27 +680,30 @@ function SearchContent() {
 
             {/* Empty Query */}
             {!query && (
-              <div className="text-center py-20">
-                <Search className="w-20 h-20 text-gray-300 mx-auto mb-4" />
-                <p className="text-xl font-medium text-gray-700 mb-2">Search for products</p>
-                <p className="text-gray-500">Enter a search term to find products</p>
+              <div className="text-center py-12 md:py-20 bg-white rounded-xl shadow-sm">
+                <div className="w-20 h-20 md:w-24 md:h-24 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Search className="w-10 h-10 md:w-12 md:h-12 text-indigo-600" />
+                </div>
+                <p className="text-lg md:text-xl font-semibold text-gray-800 mb-2">Search for products</p>
+                <p className="text-gray-500 max-w-md mx-auto px-4">
+                  Enter a search term above to find products in our catalog
+                </p>
               </div>
             )}
 
             {/* Grid View */}
             {!loading && viewMode === "grid" && filteredResults.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 lg:gap-6">
                 {filteredResults.map((item) => {
                   const discountedPrice = getDiscountedPrice(
                     item.price,
                     item.discountpercentage || 0
                   );
                   const hasDiscount = item.discountpercentage > 0;
-                  const savings = item.price - discountedPrice;
 
                   return (
                     <Link href={`/product-info/${item.id}`} key={item.id}>
-                      <div className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group h-full">
+                      <div className="bg-white rounded-lg md:rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group h-full flex flex-col">
                         {/* Image */}
                         <div className="relative aspect-square bg-gray-100 overflow-hidden">
                           <img
@@ -693,39 +715,55 @@ function SearchContent() {
                             }}
                           />
                           {hasDiscount && (
-                            <div className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                              -{item.discountpercentage}%
+                            <div className="absolute top-2 left-2 md:top-3 md:left-3 bg-red-500 text-white text-[10px] md:text-xs font-bold px-1.5 py-0.5 md:px-2 md:py-1 rounded-full">
+                              -{Math.round(item.discountpercentage)}%
                             </div>
                           )}
                           {item.stock === 0 && (
                             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                              <span className="bg-white text-gray-900 px-4 py-2 rounded-full font-semibold">
+                              <span className="bg-white text-gray-900 px-3 py-1.5 md:px-4 md:py-2 rounded-full font-semibold text-xs md:text-sm">
                                 Out of Stock
                               </span>
+                            </div>
+                          )}
+                          {item.stock > 0 && item.stock <= 5 && (
+                            <div className="absolute top-2 right-2 md:top-3 md:right-3 bg-orange-500 text-white text-[10px] md:text-xs font-medium px-1.5 py-0.5 md:px-2 md:py-1 rounded-full">
+                              Only {item.stock} left
                             </div>
                           )}
                         </div>
 
                         {/* Info */}
-                        <div className="p-4">
-                          <p className="text-xs text-indigo-600 font-medium uppercase tracking-wide mb-1">
+                        <div className="p-2.5 md:p-4 flex-1 flex flex-col">
+                          <p className="text-[10px] md:text-xs text-indigo-600 font-medium uppercase tracking-wide mb-0.5 md:mb-1">
                             {item.category}
                           </p>
-                          <h3 className="font-semibold text-gray-900 line-clamp-2 mb-2 group-hover:text-indigo-600 transition-colors">
+                          <h3 className="font-semibold text-gray-900 text-sm md:text-base line-clamp-2 mb-1.5 md:mb-2 group-hover:text-indigo-600 transition-colors flex-1">
                             {item.title}
                           </h3>
-                          <div className="flex items-center gap-1 mb-3">
-                            {renderStars(item.rating)}
-                            <span className="text-sm text-gray-500 ml-1">
+                          <div className="flex items-center gap-0.5 md:gap-1 mb-2 md:mb-3">
+                            <div className="flex">
+                              {Array.from({ length: 5 }, (_, i) => (
+                                <Star
+                                  key={i}
+                                  className={`w-3 h-3 md:w-4 md:h-4 ${
+                                    i < Math.floor(item.rating)
+                                      ? "fill-yellow-400 text-yellow-400"
+                                      : "text-gray-300"
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                            <span className="text-[10px] md:text-sm text-gray-500 ml-0.5 md:ml-1">
                               ({item.rating?.toFixed(1)})
                             </span>
                           </div>
-                          <div className="flex items-baseline gap-2">
-                            <span className="text-xl font-bold text-gray-900">
+                          <div className="flex flex-col md:flex-row md:items-baseline gap-0.5 md:gap-2">
+                            <span className="text-base md:text-xl font-bold text-gray-900">
                               ${discountedPrice.toFixed(2)}
                             </span>
                             {hasDiscount && (
-                              <span className="text-sm text-gray-500 line-through">
+                              <span className="text-xs md:text-sm text-gray-500 line-through">
                                 ${item.price.toFixed(2)}
                               </span>
                             )}
@@ -740,7 +778,7 @@ function SearchContent() {
 
             {/* List View */}
             {!loading && viewMode === "list" && filteredResults.length > 0 && (
-              <div className="space-y-4">
+              <div className="space-y-3 md:space-y-4">
                 {filteredResults.map((item) => {
                   const discountedPrice = getDiscountedPrice(
                     item.price,
@@ -750,9 +788,9 @@ function SearchContent() {
 
                   return (
                     <Link href={`/product-info/${item.id}`} key={item.id}>
-                      <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden flex">
+                      <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col sm:flex-row">
                         {/* Image */}
-                        <div className="w-48 h-48 flex-shrink-0 bg-gray-100">
+                        <div className="w-full sm:w-40 md:w-48 h-40 sm:h-40 md:h-48 flex-shrink-0 bg-gray-100 relative">
                           <img
                             src={item.thumbnail || "/placeholder.png"}
                             alt={item.title}
@@ -761,56 +799,65 @@ function SearchContent() {
                               (e.target as HTMLImageElement).src = "/placeholder.png";
                             }}
                           />
+                          {hasDiscount && (
+                            <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                              -{Math.round(item.discountpercentage)}%
+                            </div>
+                          )}
                         </div>
 
                         {/* Content */}
-                        <div className="flex-1 p-5 flex flex-col">
-                          <p className="text-xs text-indigo-600 font-medium uppercase tracking-wide mb-1">
-                            {item.category}
-                          </p>
-                          <h3 className="font-semibold text-lg text-gray-900 line-clamp-1 mb-2 hover:text-indigo-600 transition-colors">
-                            {item.title}
-                          </h3>
+                        <div className="flex-1 p-3 sm:p-4 md:p-5 flex flex-col">
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="flex-1">
+                              <p className="text-xs text-indigo-600 font-medium uppercase tracking-wide mb-1">
+                                {item.category}
+                              </p>
+                              <h3 className="font-semibold text-base md:text-lg text-gray-900 line-clamp-2 sm:line-clamp-1 mb-1 md:mb-2 hover:text-indigo-600 transition-colors">
+                                {item.title}
+                              </h3>
+                            </div>
+                            <span
+                              className={`text-xs md:text-sm font-medium whitespace-nowrap px-2 py-1 rounded-full ${
+                                item.stock > 10
+                                  ? "bg-green-100 text-green-700"
+                                  : item.stock > 0
+                                  ? "bg-orange-100 text-orange-700"
+                                  : "bg-red-100 text-red-700"
+                              }`}
+                            >
+                              {item.stock > 0
+                                ? item.stock > 10
+                                  ? "In Stock"
+                                  : `${item.stock} left`
+                                : "Out of Stock"}
+                            </span>
+                          </div>
                           <div className="flex items-center gap-2 mb-2">
                             <div className="flex">{renderStars(item.rating)}</div>
                             <span className="text-sm text-gray-500">
                               ({item.rating?.toFixed(1)})
                             </span>
                           </div>
-                          <p className="text-gray-600 text-sm line-clamp-2 mb-3 flex-1">
+                          <p className="text-gray-600 text-sm line-clamp-2 mb-2 md:mb-3 flex-1 hidden sm:block">
                             {item.description}
                           </p>
-                          <div className="flex items-center justify-between">
+                          <div className="flex items-center justify-between mt-auto">
                             <div className="flex items-baseline gap-2">
-                              <span className="text-2xl font-bold text-gray-900">
+                              <span className="text-xl md:text-2xl font-bold text-gray-900">
                                 ${discountedPrice.toFixed(2)}
                               </span>
                               {hasDiscount && (
-                                <>
-                                  <span className="text-sm text-gray-500 line-through">
-                                    ${item.price.toFixed(2)}
-                                  </span>
-                                  <span className="text-sm text-red-600 font-semibold">
-                                    -{item.discountpercentage}%
-                                  </span>
-                                </>
+                                <span className="text-sm text-gray-500 line-through">
+                                  ${item.price.toFixed(2)}
+                                </span>
                               )}
                             </div>
-                            <span
-                              className={`text-sm font-medium ${
-                                item.stock > 10
-                                  ? "text-green-600"
-                                  : item.stock > 0
-                                  ? "text-orange-600"
-                                  : "text-red-600"
-                              }`}
-                            >
-                              {item.stock > 0
-                                ? item.stock > 10
-                                  ? "In Stock"
-                                  : `Only ${item.stock} left`
-                                : "Out of Stock"}
-                            </span>
+                            {hasDiscount && (
+                              <span className="text-sm text-green-600 font-medium hidden sm:block">
+                                Save ${(item.price - discountedPrice).toFixed(2)}
+                              </span>
+                            )}
                           </div>
                         </div>
                       </div>
