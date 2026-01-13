@@ -8,10 +8,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LuCircleUserRound } from "react-icons/lu";
-import { FaUser, FaCreditCard, FaUsers, FaRegClipboard } from "react-icons/fa";
+import { User, Package, Heart, Settings, HelpCircle, LogOut, ChevronDown, Plus } from "lucide-react";
 import { AddProduct } from "./AddProduct";
 import { UserContext } from "../_context/UserContext";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type UserWithoutPassword = {
   id: string;
@@ -20,11 +21,26 @@ type UserWithoutPassword = {
 };
 
 export default function UserDropDown() {
-  // ✅ Correct typing
   const userContext = useContext(UserContext);
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("/api/logout", {
+        method: "POST",
+      });
+      
+      if (res.ok) {
+        router.push("/login");
+        router.refresh();
+      }
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   if (!userContext) {
-    return null; // or a fallback UI
+    return null;
   }
 
   const { user } = userContext as { user: UserWithoutPassword };
@@ -32,39 +48,77 @@ export default function UserDropDown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-indigo-600 transition"
+        className="flex items-center gap-2 p-2 lg:px-3 lg:py-2 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         aria-label="User Menu"
       >
-        <LuCircleUserRound className="h-6 w-6" />
-        <span className="text-sm font-medium">User</span>
+        <div className="relative">
+          <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-1.5 rounded-full">
+            <User className="h-4 w-4 text-white" />
+          </div>
+          <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 bg-green-500 border-2 border-white rounded-full"></span>
+        </div>
+        <span className="hidden lg:inline text-sm font-medium max-w-[100px] truncate">
+          {user?.name || 'Account'}
+        </span>
+        <ChevronDown className="hidden lg:block h-4 w-4 text-gray-400" />
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="w-48 bg-white shadow-lg border border-gray-200 rounded-md">
-        <DropdownMenuLabel className="text-gray-600">
-          My Account
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
+      <DropdownMenuContent className="w-64 bg-white shadow-xl border border-gray-100 rounded-xl p-2" align="end">
+        {/* User Info Header */}
+        <div className="px-3 py-3 mb-2 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg">
+          <div className="flex items-center gap-3">
+            <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-2.5 rounded-full">
+              <User className="h-5 w-5 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-gray-900 truncate">{user?.name}</p>
+              <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+            </div>
+          </div>
+        </div>
 
-        <DropdownMenuItem className="flex items-center gap-2 hover:bg-indigo-100 cursor-pointer">
-          <FaUser className="h-4 w-4 text-gray-600" />
-          {user?.name}
-        </DropdownMenuItem>
-
-        <div className="px-2 py-1.5">
-          <div className="flex items-center gap-2 hover:bg-indigo-100 cursor-pointer rounded px-2 py-1">
-            <FaCreditCard className="h-4 w-4 text-gray-600" />
+        {/* Quick Actions */}
+        <div className="px-1 mb-2">
+          <div className="flex items-center gap-2 p-2 hover:bg-indigo-50 cursor-pointer rounded-lg transition">
+            <Plus className="h-4 w-4 text-indigo-600" />
             <AddProduct />
           </div>
         </div>
 
-        <DropdownMenuItem className="flex items-center gap-2 hover:bg-indigo-100 cursor-pointer">
-          <FaUsers className="h-4 w-4 text-gray-600" />
-          Team
-        </DropdownMenuItem>
+        <DropdownMenuSeparator className="bg-gray-100" />
 
-        <DropdownMenuItem className="flex items-center gap-2 hover:bg-indigo-100 cursor-pointer">
-          <FaRegClipboard className="h-4 w-4 text-gray-600" />
-          Subscription
+        {/* Menu Items */}
+        <div className="py-1">
+          <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 hover:bg-gray-50 cursor-pointer rounded-lg transition">
+            <Package className="h-4 w-4 text-gray-500" />
+            <span className="text-gray-700">My Orders</span>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 hover:bg-gray-50 cursor-pointer rounded-lg transition">
+            <Heart className="h-4 w-4 text-gray-500" />
+            <span className="text-gray-700">Wishlist</span>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 hover:bg-gray-50 cursor-pointer rounded-lg transition">
+            <Settings className="h-4 w-4 text-gray-500" />
+            <span className="text-gray-700">Settings</span>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem className="flex items-center gap-3 px-3 py-2.5 hover:bg-gray-50 cursor-pointer rounded-lg transition">
+            <HelpCircle className="h-4 w-4 text-gray-500" />
+            <span className="text-gray-700">Help & Support</span>
+          </DropdownMenuItem>
+        </div>
+
+        <DropdownMenuSeparator className="bg-gray-100" />
+
+        {/* Logout */}
+        <DropdownMenuItem 
+          className="flex items-center gap-3 px-3 py-2.5 mt-1 hover:bg-red-50 cursor-pointer rounded-lg transition text-red-600 focus:text-red-600 focus:bg-red-50"
+          onClick={handleLogout}
+        >
+          <LogOut className="h-4 w-4" />
+          <span className="font-medium">Sign Out</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

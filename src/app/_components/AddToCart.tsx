@@ -48,9 +48,9 @@ export default function AddToCart({ prod }: { prod: any }) {
     <Button
       onClick={handleAddToCart}
       disabled={loading}
-      className="bg-purple-600 hover:bg-purple-700 text-white"
+      className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white h-12 text-base font-semibold"
     >
-      <ShoppingCart className="mr-2 h-4 w-4" />
+      <ShoppingCart className="mr-2 h-5 w-5" />
       {loading ? "Adding..." : "Add to Cart"}
     </Button>
   );

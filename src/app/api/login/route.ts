@@ -66,10 +66,11 @@ export async function POST(req: NextRequest) {
 
     return response;
   } catch (error) {
+    console.error("Login error:", error);
     return NextResponse.json(
       {
         success: false,
-        message: "Login failed",
+        message: "Server error, please try again later",
       },
       { status: 500 }
     );
